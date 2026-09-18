@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* docs/DESIGN.md §2 — 컴포넌트는 토큰만 참조한다 (raw hex 금지) */
+:root {
+  --bg-page: #f2f2f3;
+  --bg-card: #ffffff;
+  --bg-raised: #f2f2f3;
+  --bg-alt: #f7f7f8;
+  --text-primary: #0f1011;
+  --text-secondary: #3d3d43;
+  --text-tertiary: #62626a;
+  --text-muted: #888890;
+  --text-disabled: #a3a3a9;
+  --line: rgba(0, 0, 0, 0.12);
+  --line-input: #bdbdc1;
+  --scrim: rgba(0, 0, 0, 0.4);
+
+  --primary: #7234e0;
+  --primary-strong: #482486;
+  --primary-subtle: #e8d6ff;
+  --primary-faint: #f6eeff;
+  --on-primary-subtle: #482486;
+
+  --status-available: #21ab79;
+  --status-undecided: #f5a524;
+  --status-unavailable: #f1415e;
+  --status-none: #a3a3a9;
+  --status-available-tint: rgba(33, 171, 121, 0.14);
+  --status-undecided-tint: rgba(245, 165, 36, 0.18);
+  --status-unavailable-tint: rgba(241, 65, 94, 0.14);
+  --status-none-tint: #f2f2f3;
+  /* 틴트 위에 올라가는 글자색 (4.5:1 이상) */
+  --status-available-text: #14784f;
+  --status-undecided-text: #8a5a00;
+  --status-unavailable-text: #c21f3d;
+  --status-none-text: #62626a;
+
+  --info: #38aefa;
+  --ink: #0f1011;
+
+  /* 요일 색 (토 파랑 / 일 빨강) — 글자에만 쓴다 */
+  --weekday-sat: #1565e8;
+  --weekday-sun: #e5243f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #0f1011;
+    --bg-card: #252628;
+    --bg-raised: #3d3d43;
+    --bg-alt: #3d3d43;
+    --text-primary: #ffffff;
+    --text-secondary: #a3a3a9;
+    --text-tertiary: #a3a3a9;
+    --text-muted: #888890;
+    --text-disabled: #62626a;
+    --line: rgba(255, 255, 255, 0.12);
+    --line-input: rgba(255, 255, 255, 0.12);
+    --scrim: rgba(0, 0, 0, 0.6);
+
+    --primary: #8243f2;
+    --primary-strong: #7234e0;
+    --primary-subtle: rgba(130, 67, 242, 0.32);
+    --primary-faint: rgba(130, 67, 242, 0.16);
+    --on-primary-subtle: #ffffff;
+
+    --status-none-tint: #3d3d43;
+    --weekday-sat: #5aa2ff;
+    --weekday-sun: #ff6b7d;
+    --status-available-text: #6fd7a4;
+    --status-undecided-text: #f2c265;
+    --status-unavailable-text: #f58a8d;
+    --status-none-text: #a3a3a9;
+  }
+}
+
+@theme inline {
+  --color-page: var(--bg-page);
+  --color-card: var(--bg-card);
+  --color-raised: var(--bg-raised);
+  --color-alt: var(--bg-alt);
+  --color-fg: var(--text-primary);
+  --color-fg-secondary: var(--text-secondary);
+  --color-fg-tertiary: var(--text-tertiary);
+  --color-fg-muted: var(--text-muted);
+  --color-fg-disabled: var(--text-disabled);
+  --color-line: var(--line);
+  --color-line-input: var(--line-input);
+  --color-scrim: var(--scrim);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-faint: var(--primary-faint);
+  --color-on-primary-subtle: var(--on-primary-subtle);
+  --color-available: var(--status-available);
+  --color-undecided: var(--status-undecided);
+  --color-unavailable: var(--status-unavailable);
+  --color-none: var(--status-none);
+  --color-available-tint: var(--status-available-tint);
+  --color-undecided-tint: var(--status-undecided-tint);
+  --color-unavailable-tint: var(--status-unavailable-tint);
+  --color-none-tint: var(--status-none-tint);
+  --color-available-text: var(--status-available-text);
+  --color-undecided-text: var(--status-undecided-text);
+  --color-unavailable-text: var(--status-unavailable-text);
+  --color-none-text: var(--status-none-text);
+  --color-info: var(--info);
+  --color-sat: var(--weekday-sat);
+  --color-sun: var(--weekday-sun);
+  --color-ink: var(--ink);
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  --radius-seg: 4px;
+  --radius-ctl: 6px;
+  --radius-card: 16px;
+
+  --ease-enter: cubic-bezier(0.2, 0.6, 0.25, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  --animate-sheet-in: sheet-in 240ms var(--ease-enter);
+  --animate-fade-in: fade-in 240ms var(--ease-enter);
+  --animate-pulse-flat: pulse-flat 1.2s var(--ease-standard) infinite;
+
+  @keyframes sheet-in {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes pulse-flat {
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
+
+html {
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    transition-duration: 0ms !important;
+  }
+}
