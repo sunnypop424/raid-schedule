@@ -27,12 +27,13 @@ export function WeekHeader({ weekStart, now, hrefFor }: WeekHeaderProps) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-card pt-[env(safe-area-inset-top)]">
-      <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center px-2 lg:px-8">
-        <div className="flex min-w-0 flex-1 items-center justify-between gap-1 lg:justify-start">
+      <div className="relative mx-auto flex h-14 w-full max-w-[1200px] items-center px-2 lg:px-8">
+        {/* 모바일: 좌우 끝에 화살표 / 데스크톱: 화면 가운데에 ◀ 주차 ▶ 묶음 (주차 폭 고정이라 화살표가 안 움직인다) */}
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-1 lg:justify-center lg:gap-2">
           <Link href={hrefFor(addWeeks(weekStart, -1))} aria-label="이전 주" className={navButton}>
             <ChevronLeft />
           </Link>
-          <div className="text-center leading-tight">
+          <div className="text-center leading-tight lg:w-[300px]">
             <p className="text-xs text-fg-muted">
               {getYear(weekStart)}
               {weekStart < current && ' · 지난 주 · 조회만 가능합니다'}
@@ -55,7 +56,7 @@ export function WeekHeader({ weekStart, now, hrefFor }: WeekHeaderProps) {
           {weekStart !== home && (
             <Link
               href={hrefFor(home)}
-              className="ml-1 hidden h-11 items-center lg:flex"
+              className="absolute top-1/2 right-8 hidden h-11 -translate-y-1/2 items-center lg:flex"
               aria-label="다음 주 일정으로 돌아가기"
             >
               <span className="rounded-ctl bg-primary-subtle px-2.5 py-1 text-sm font-medium text-on-primary-subtle">

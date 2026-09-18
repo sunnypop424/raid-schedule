@@ -272,7 +272,7 @@ One card per day, 8px apart. No table view.
 ### Header & Week Navigation
 
 - Height 56px, page surface, bottom hairline, sticky
-- `◀  2026 · 09.16(수) ~ 09.22(화)  ▶` — the header holds week navigation only (18px / 700, tabular-nums): prev at the left edge, next at the right. No avatar here.
+- `◀  2026 · 09.16(수) ~ 09.22(화)  ▶` — the header holds week navigation only (18px / 700, tabular-nums): on mobile prev sits at the left edge and next at the right; on desktop the `◀ week ▶` group is centered in the header with a fixed-width title so the arrows never shift, and the "다음 주 일정" return chip pins to the right edge. No avatar here.
 - A "이번 주" soft-purple chip (height 28px visual / 44px hit area, 6px radius) appears under or beside the range only when the viewed week is not the current week
 - Past weeks show a "지난 주 · 조회만 가능" caption in muted text
 
